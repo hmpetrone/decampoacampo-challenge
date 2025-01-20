@@ -59,6 +59,6 @@ Las siguientes rutas están disponibles para interactuar con la API:
 
 Puedes probar la API utilizando herramientas como Postman o desde el proyecto frontend ubicado en el siguiente repositorio:
 
-[Repositorio del frontend](https://github.com/hmpetrone/decampoacampo-challenge-frontend)
+[Repositorio del frontend](https://github.com/hmpetrone/decampoacampo-challenge-front)
 
 Este frontend se conecta directamente con la API y facilita la visualización y gestión de los productos.
