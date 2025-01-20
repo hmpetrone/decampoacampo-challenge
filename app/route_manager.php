@@ -1,10 +1,18 @@
 <?php
 
-// Aca se se manejan las rutas y metodos del archivo routes para redireccionar las peticiones
 // es el archivo mas 'complicado' por lo que dejo varios comentarios
+// Aca se se manejan las rutas y metodos del archivo routes para redireccionar las peticiones
 
 global $routes;
 require_once BASE_PATH . '/app/routes.php';
+
+$precioUsd = getenv('PRECIO_USD');
+
+if (!$precioUsd) {
+    http_response_code(500);
+    echo json_encode(['error' => 'PRECIO_USD no está configurado']);
+    exit;
+}
 
 // Función para convertir rutas con `{param}` en expresiones regulares
 function convertRouteToRegex(string $route): string

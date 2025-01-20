@@ -3,6 +3,7 @@
 require_once BASE_PATH.'/config/Database.php';
 require_once BASE_PATH.'/app/models/Product.php';
 require_once BASE_PATH.'/app/repositories/ProductRepository.php';
+require_once BASE_PATH.'/app/validators/ProductValidator.php';
 
 class ProductController
 {
@@ -16,7 +17,7 @@ class ProductController
     public function index()
     {
         $products = $this->repository->getAll();
-        echo json_encode($products);
+        return json_encode($products);
     }
 
     public function show($id)
