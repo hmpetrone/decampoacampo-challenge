@@ -5,16 +5,15 @@ class Product
     public $id;
     public $nombre;
     public $descripcion;
-    public $precio_pesos;
-    public $precio_usd;
+    private $precio_pesos;
+    private $precio_usd;
 
     public function __construct(array $data)
     {
         $this->id = $data['id'] ?? null;
         $this->nombre = $data['nombre'];
         $this->descripcion = $data['descripcion'];
-        $this->precio_pesos = $data['precio_pesos'];
-        $this->precio_usd = $data['precio_usd'];
+        $this->precio_pesos = $data['precio'];
     }
 
     public function getNombre(): string
@@ -29,16 +28,23 @@ class Product
 
     public function getPrecioPesos(): float
     {
-        return $this->precio_pesos;
+        return round($this->precio_pesos, 2);
     }
 
     public function getPrecioUsd(): float
     {
-        return $this->precio_usd;
+        $precioUsd = getenv('PRECIO_USD');
+        return round($this->precio_pesos / $precioUsd, 2);
     }
 
     public function toJson(): string
     {
-        return json_encode($this);
+        return json_encode([
+            'id' => $this->id,
+            'nombre' => $this->getNombre(),
+            'descripcion' => $this->getDescripcion(),
+            'precio_pesos' => $this->getPrecioPesos(),
+            'precio_usd' => $this->getPrecioUsd(),
+        ]);
     }
 }

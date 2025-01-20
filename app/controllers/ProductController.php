@@ -17,18 +17,22 @@ class ProductController
     public function index()
     {
         $products = $this->repository->getAll();
-        return json_encode($products);
+        $response = array_map(fn($product) => json_decode($product->toJson(), true), $products);
+
+        echo json_encode($response);
+        exit();
     }
 
     public function show($id)
     {
-        $product =  $this->repository->getById($id);
+        $product = $this->repository->getById($id);
         if ($product) {
-            echo json_encode($product);
+            echo $product->toJson();
         } else {
             http_response_code(404);
             echo json_encode(['error' => 'Producto no encontrado']);
         }
+        exit();
     }
 
     public function create()

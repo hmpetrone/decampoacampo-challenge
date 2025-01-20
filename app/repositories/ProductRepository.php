@@ -12,41 +12,27 @@ class ProductRepository
 
     public function getAll(): array
     {
-        $stmt = $this->db->prepare('
-            SELECT 
-                id, 
-                nombre,
-                descripcion,
-                precio AS precio_pesos, 
-                precio / ? AS precio_usd 
-            FROM productos
-        ');
-        $precioUsd = getenv('PRECIO_USD');
-        $stmt->bind_param('d', $precioUsd);
+        $stmt = $this->db->prepare('SELECT id, nombre, descripcion, precio FROM productos');
         $stmt->execute();
 
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = new Product($row);
+        }
+        return $products;
     }
 
-    public function getById(int $id): ?array
+    public function getById(int $id): ?Product
     {
-        $stmt = $this->db->prepare('
-            SELECT 
-                id, 
-                nombre,
-                descripcion,
-                precio AS precio_pesos, 
-                precio / ? AS precio_usd 
-            FROM productos 
-            WHERE id = ?
-        ');
-        $precioUsd = getenv('PRECIO_USD');
-        $stmt->bind_param('di', $precioUsd, $id);
+        $stmt = $this->db->prepare('SELECT id, nombre, descripcion, precio FROM productos WHERE id = ?');
+        $stmt->bind_param('i', $id);
         $stmt->execute();
 
         $result = $stmt->get_result();
-        return $result->fetch_assoc() ?: null;
+        $data = $result->fetch_assoc();
+
+        return $data ? new Product($data) : null;
     }
 
     public function create(string $nombre, string $descripcion, float $precio): bool
