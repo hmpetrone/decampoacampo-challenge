@@ -62,3 +62,9 @@ Puedes probar la API utilizando herramientas como Postman o desde el proyecto fr
 [Repositorio del frontend](https://github.com/hmpetrone/decampoacampo-challenge-front)
 
 Este frontend se conecta directamente con la API y facilita la visualización y gestión de los productos.
+
+## Feedback
+
+Estoy abierto a recibir observaciones o sugerencias que puedan ayudarme en futuros procesos de selección. Si tienes algún comentario, no dudes en enviarlo a mi correo personal: [hernan_hmp@hotmail.com](mailto:hernan_hmp@hotmail.com).
+
+Gracias por la oportunidad y, en caso de no avanzar con el proceso, agradezco el tiempo invertido en la evaluación.

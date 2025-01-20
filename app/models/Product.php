@@ -6,7 +6,6 @@ class Product
     public $nombre;
     public $descripcion;
     private $precio_pesos;
-    private $precio_usd;
 
     public function __construct(array $data)
     {
