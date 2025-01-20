@@ -15,4 +15,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once BASE_PATH . '/autoload.php';
-require_once BASE_PATH . '/app/route_manager.php';
+require_once BASE_PATH . '/app/request_handler.php';

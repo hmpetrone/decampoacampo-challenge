@@ -1,6 +1,5 @@
 <?php
 
-// es el archivo mas 'complicado' por lo que dejo varios comentarios
 // Aca se se manejan las rutas y metodos del archivo routes para redireccionar las peticiones
 
 global $routes;
@@ -8,18 +7,20 @@ require_once BASE_PATH . '/app/routes.php';
 
 $precioUsd = getenv('PRECIO_USD');
 
-if (!$precioUsd) {
+// check precio_usd que sea un numero valido y no nulo
+if (!is_numeric($precioUsd) || $precioUsd <= 0) {
     http_response_code(500);
-    echo json_encode(['error' => 'PRECIO_USD no está configurado']);
+    echo json_encode(['error' => 'PRECIO_USD no está bien configurado']);
     exit;
 }
 
-// Función para convertir rutas con `{param}` en expresiones regulares
+// Función para convertir rutas con algun `{param}` en expresiones regulares
 function convertRouteToRegex(string $route): string
 {
-    return '#^' . preg_replace('#\{[^/]+\}#', '([^/]+)', $route) . '$#';
+    return '#^' . preg_replace_callback('#\{[^/]+\}#', function($matches) {
+            return '(\d+)'; // Verificamos si el parámetro es numérico
+        }, $route) . '$#';
 }
-
 $uri = rtrim(urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)), '/');
 $method = $_SERVER['REQUEST_METHOD'];
 
